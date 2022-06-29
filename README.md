@@ -166,11 +166,9 @@ Host cheribsd-riscv-purecap
 
     
 #### Android
-https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst#id15
+https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst#id15 - to be updated after some research...
 
-#### Linux
-> to be updated... after giving a go
-
+    
 ## List of useful documentation
 - [Arm Morello Program](https://www.morello-project.org/)
 - Flashing SD Card - [Flash SD Card](https://developer.arm.com/documentation/den0132/0100/Flash-the-onboard-SD-card)

@@ -4,11 +4,10 @@ There are plenty of usefull documentation that has been already done to the very
 - common issues highlighted
 - what to expect and what do you need to do to be able to build your software on Morello board
 - installation of CheriBSD
-> Since this is a new project the documentation is scattered around the internet and in some cases the end-user might not even be aware that such documents do already exists. We have combined a number of documents and broken down into smaller paragraph so you don't have to read through all of it in order to get started.
+> Since this is a new project the documentation is scattered around the internet and in some cases the end-user might not even be aware that such documents do already exists. We have combined a number of documents and broken down into smaller paragraphs so you don't have to read through all of them in order to get started.
 
 ### List of TODOs
 - [ ] - Document Androind
-- [ ] - Document Linux
 - [ ] - Update connection paragragh to include `windows` and `putty` (get feedback from RealVNC)
 - [ ] - Ask Konrad to take a look and get any other relevant links/docs
 
@@ -17,15 +16,16 @@ To be fair it depends on the software stack which system would suit you the most
 
 > Currently Morello supports three systems
 > - CherisBSD - most advanced
-> - Linux - to be fair we would need to confirm how much progress have been made of this one
+> - Linux - to be fair we would need to confirm how much progress has been made on Linux, as far 
 > - Android - as far as we are aware this is has got a fairly good coverage but if you can run same stack in CheriBSD, then our recomendation would be to use CheriBSD
 
+## Connection
 
-## a) Connection (Hardware)
+### a) Hardware
 There is nothing special about this step but we have found a few people getting confused by the anode display, thinking as of error code. But in some cases this will indicate that machine is starting or started. Here is a detailed guide in regards to setting up Morello [hardware](https://developer.arm.com/documentation/den0132/0100/Setting-up-the-Morello-Hardware-Development-Platform)
 
 
-## b) Connection (UART/SERIAL) - via USB
+### b) UART/SERIAL - via USB
 This is the first step and in some cases it might be trickiest as without being able to connect you can not interact with Morello board also at this point you can't not get any video output. In order to connect to the machine you would require to follow the below guide. It has been extracted from [here](https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst#id32)
 
 - Connect a USB-B cable between the host machine and Morello's USB DBG port on the back panel.
@@ -119,11 +119,54 @@ After the installation of dependencies please carry on following steps in -> [gu
 Once you have updated the firmware it's time to put some operating system on the Morello board.
 > we would strongly recommend to update to the latest firstmaware as hardware comes with the firmaware from early January. There is a lot of active development going on at this moment so in order to see full potential of Morello please update the firmware before starting.
   
-#### CherisBSD
-For this step you will be required an USB stic
+#### Building and running CheriBSD
+> To build CheriBSD run cheribuild.py cheribsd-<architecture>, with architecture being one of
+- `riscv64:` Kernel and userspace are RISC-V without CHERI support.
+- `riscv64-hybrid:` Kernel is RISC-V with CHERI support (hybrid), but most programs built as plain RISC-V.
+- `riscv64-purecap:` Kernel is RISC-V with CHERI support (hybrid), and all userspace programs built as pure-capability CHERI binaries.
+- `mips64:` Kernel and userspace are MIPS without CHERI support.
+- `mips64-hybrid:` Kernel is MIPS with CHERI support (hybrid), but most programs built as plain RISC-V.
+- `mips64-purecap:` Kernel is MIPS with CHERI support (hybrid), and all userspace programs built as pure-capability CHERI binaries.
+- `aarch64:` Kernel and userspace are AArch64 without CHERI support.
+- `morello-hybrid:` Kernel is AArch64 with CHERI (Morello) support (hybrid), but most programs built as plain AArch64.
+- `morello-purecap:` Kernel is AArch64 with CHERI (Morello) support (hybrid), and all userspace programs built as pure-capability CHERI binaries.
+- `amd64:` Kernel and userspace are 64-bit Intel x86.
+
+### Disk image
+The disk image is created by the `cheribuild.py disk-image-<architecture>` target and can then be used as a boot disk by QEMU.
+In order to customize the disk image it will add all files under (by default) `~/cheri/extra-files/`
+to the resulting image.
+
+> A suitable `/etc/rc.conf` and `/etc/fstab` will also be added to this directory and can then be customized.
+> The default path for the disk image is ~/cheri/output/cheribsd-<architecture>.img, i.e. `cheribsd-riscv64-purecap.img` for pure-capability **RISC-V** or `cheribsd-mips64.img` for **MIPS** without **CHERI** support.
+
+### CheriBSD SSH ports
+It will print a message such as `Listening for SSH connections on localhost:12374`. This can be changed using `cheribuild.py --run/ssh-forwarding-port <portno> run-<architecture>` 
+
+### Speeding up SSH connections
+Connecting to CheriBSD via ssh can take a few seconds. Further connections after the first can be sped up by using the openssh ControlMaster setting:
+```sh
+Host cheribsd-riscv
+  User root
+  Port 12345
+  HostName localhost
+  ControlPath ~/.ssh/controlmasters/%r@%h:%p
+  ControlMaster auto
+  StrictHostKeyChecking no
   
+Host cheribsd-riscv-purecap
+  User root
+  Port 12346
+  HostName localhost
+  ControlPath ~/.ssh/controlmasters/%r@%h:%p
+  ControlMaster auto
+  StrictHostKeyChecking no
+```
+##### A complete guide and source code can be found [here](https://github.com/CTSRD-CHERI/cheribuild)
+
+    
 #### Android
-> to be updated... after giving a go
+https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst#id15
 
 #### Linux
 > to be updated... after giving a go

@@ -10,8 +10,7 @@ There are plenty of usefull documentation that has been already done to the very
 - [ ] - Document Androind
 - [ ] - Document Linux
 - [ ] - Update connection paragragh to include `windows` and `putty` (get feedback from RealVNC)
-- [ ] - Ask Konrad to take a look and links to any other relevant material
-
+- [ ] - Ask Konrad to take a look and get any other relevant links/docs
 
 ### Some insights
 To be fair it depends on the software stack which system would suit you the most. At the moment very high focus is on CheriBSD so when it comes to packages as far as we know nearly 50% have been made compatible already

@@ -119,7 +119,7 @@ After the installation of dependencies please carry on following steps in -> [gu
 Once you have updated the firmware it's time to put some operating system on the Morello board.
 > we would strongly recommend to update to the latest firstmaware as hardware comes with the firmaware from early January. There is a lot of active development going on at this moment so in order to see full potential of Morello please update the firmware before starting.
   
-#### Building and running CheriBSD
+### Building and running CheriBSD
 > To build CheriBSD run cheribuild.py cheribsd-<architecture>, with architecture being one of
 - `riscv64:` Kernel and userspace are RISC-V without CHERI support.
 - `riscv64-hybrid:` Kernel is RISC-V with CHERI support (hybrid), but most programs built as plain RISC-V.
@@ -132,7 +132,7 @@ Once you have updated the firmware it's time to put some operating system on the
 - `morello-purecap:` Kernel is AArch64 with CHERI (Morello) support (hybrid), and all userspace programs built as pure-capability CHERI binaries.
 - `amd64:` Kernel and userspace are 64-bit Intel x86.
 
-### Disk image
+#### Disk image
 The disk image is created by the `cheribuild.py disk-image-<architecture>` target and can then be used as a boot disk by QEMU.
 In order to customize the disk image it will add all files under (by default) `~/cheri/extra-files/`
 to the resulting image.
@@ -140,10 +140,10 @@ to the resulting image.
 > A suitable `/etc/rc.conf` and `/etc/fstab` will also be added to this directory and can then be customized.
 > The default path for the disk image is ~/cheri/output/cheribsd-<architecture>.img, i.e. `cheribsd-riscv64-purecap.img` for pure-capability **RISC-V** or `cheribsd-mips64.img` for **MIPS** without **CHERI** support.
 
-### CheriBSD SSH ports
+##### CheriBSD SSH ports
 It will print a message such as `Listening for SSH connections on localhost:12374`. This can be changed using `cheribuild.py --run/ssh-forwarding-port <portno> run-<architecture>` 
 
-### Speeding up SSH connections
+##### Speeding up SSH connections
 Connecting to CheriBSD via ssh can take a few seconds. Further connections after the first can be sped up by using the openssh ControlMaster setting:
 ```sh
 Host cheribsd-riscv
@@ -162,7 +162,7 @@ Host cheribsd-riscv-purecap
   ControlMaster auto
   StrictHostKeyChecking no
 ```
-##### A complete guide and source code can be found [here](https://github.com/CTSRD-CHERI/cheribuild)
+#### A complete guide and source code can be found [here](https://github.com/CTSRD-CHERI/cheribuild)
 
     
 #### Android

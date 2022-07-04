@@ -1,32 +1,32 @@
 # Morello board getting started
-There are plenty of usefull documentation that has been already done to the very high standard and we did not wanted to copy and paste. Instead, we have combined and highlighted all the obstacles we have came across ourselves or heard from other participants. In case your issue has not been described here we would like to kindly ask you to email us **DSBD Programme <dsbdprogramme@digicatapult.org.uk>**. In this guide you will find:
-- links to the valuable documents in regards to Morello project
-- common issues highlighted
-- what to expect and what do you need to do to be able to build your software on Morello board
-- installation of CheriBSD
-> Since this is a new project the documentation is scattered around the internet and in some cases the end-user might not even be aware that such documents do already exists. We have combined a number of documents and broken down into smaller paragraphs so you don't have to read through all of them in order to get started.
+A significant and comprehensive amount of documentation has been already completed to a particularly high standard on the topic of Morello architecture, commonly reported concerns, and solutions. So as to not duplicate work in this already strong knowledge base, the DsBD team has collated and condensed all the challenges reported by users that we have become aware of, either directly or from other participants. If you have a concern that has not been described here, please kindly email the DSbD Programme at **dsbdprogramme@digicatapult.org.uk**.
 
-### List of TODOs
-- [ ] - Document Androind
-- [ ] - Update connection paragragh to include `windows` and `putty` (get feedback from RealVNC)
-- [ ] - Ask Konrad to take a look and get any other relevant links/docs
+In this guide you will find:
+- Links to key documents about the Morello project challenges and solutions
+- Common issues that have been highlighted
+- What to expect and how to build your software on Morello board
+- Installation instructions for CheriBSD
 
-### Some insights
-To be fair it depends on the software stack which system would suit you the most. At the moment very high focus is on CheriBSD so when it comes to packages as far as we know nearly 50% have been made compatible already
+> As DSbD is a relatively new project, related documentation is fragmented around the internet, and as such, end-users may not be aware of all the documents already in existence. This user guide combines several of these documents together, broken down into smaller and more accessible paragraphs to allow end users to get started quickly.
 
-> Currently Morello supports three systems
-> - CherisBSD - most advanced
-> - Linux - to be fair we would need to confirm how much progress has been made on Linux, as far 
-> - Android - as far as we are aware this is has got a fairly good coverage but if you can run same stack in CheriBSD, then our recomendation would be to use CheriBSD
+
+### Project insights
+Choosing the system that will best suit your needs is dependent upon the software stack chosen. Currently, there is a particularly high focus placed by industry on CheriBSD. As such, nearly 50% of packages, have already been made compatible.
+
+> Currently, Morello supports three systems:
+- CherisBSD - most advanced
+- Linux - to be fair we would need to confirm how much progress has been made on Linux, as far as we know only C compiler works
+- Android - as far as we are aware this is has got a fairly good coverage but if you can run same stack in CheriBSD, then our recomendation would be to use CheriBSD
+
 
 ## Connection
 
 ### a) Hardware
-There is nothing special about this step but we have found a few people getting confused by the anode display, thinking as of error code. But in some cases this will indicate that machine is starting or started. Here is a detailed guide in regards to setting up Morello [hardware](https://developer.arm.com/documentation/den0132/0100/Setting-up-the-Morello-Hardware-Development-Platform)
+Some users have reported difficulties with the anode display, which can be mistaken for an error code. In some cases, this will indicate that machine is starting or started. More information and a detailed guide for setting up Morello hardware can be found [here](https://developer.arm.com/documentation/den0132/0100/Setting-up-the-Morello-Hardware-Development-Platform).
 
 
 ### b) UART/SERIAL - via USB
-This is the first step and in some cases it might be trickiest as without being able to connect you can not interact with Morello board also at this point you can't not get any video output. In order to connect to the machine you would require to follow the below guide. It has been extracted from [here](https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst#id32)
+This is the first step, and in some cases the trickiest, as not being able to connect prevents interaction with the Morello board or receiving video output. In order to connect to the machine, please follow the below guide, extracted from [here](https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst#id32)
 
 - Connect a USB-B cable between the host machine and Morello's USB DBG port on the back panel.
 - Connect a LAN cable to the PCIe GbE LAN port that is above the 2 USB3 host ports.
@@ -36,8 +36,7 @@ This is the first step and in some cases it might be trickiest as without being 
 - After power on, the board will enumerate 8 COM ports (user might need to wait for a few minutes, depending on the host system).
 - Note down the newly enumerated COM port numbers. Assuming that the COM ports start at ttyUSB<n>, following is the COM port assignment:
 
-> This can become a tricky part on OS X system because they follow a different pattern. For example in our case we have had `tty.usbserial-<n>.` so it might be a good idea to if running linux/unix system to run `sudo ls -la /dev | wc -l` - this will return a total number of items found in `/dev` so if Morello board has been recognised the number should increase and then finding new connections should be straight forward. However Windows users would need to into `Device Manager` and confirm in there that a new device has been detected. Below you will find a table with some port examples. In order to connect via USB we have used `tty.usbserial-0.` on OS X system
-> You might be required to check every port to confirm if serial connection is working and you can access the Morello board
+> This can become a tricky part on OS X system because they follow a different pattern. For example in our case we have had `tty.usbserial-<n>`. so it might be a good idea to if running linux/unix system to run `sudo ls -la /dev | wc -l` - this will return a total number of items found in /dev so if Morello board has been recognised the number should increase and then finding new connections should be straight forward. However, Windows users would need to into Device Manager and confirm in there that a new device has been detected. Below you will find a table with some port examples. In order to connect via USB we have used `tty.usbserial-****B0`. on OS X system You might be required to check every port to confirm if serial connection is working and you can access the Morello board
 
 | COM PORT           | FIDI device serial number/port | Description                                 |
 |--------------------|:------------------------------:|--------------------------------------------:|
@@ -57,9 +56,9 @@ Open the MCC, AP and SCP COM ports using a serial port application such asminico
 - 1 stop bit
 - No flow control
 
-> Note: Some serial port applications, including minicom, refer to this as "115200 8N1" or similar. Other tools also could be used go establish a serial connection. Just please make sure it's cofigured using the above settings.
+> Note: Some serial port applications, including minicom, refer to this as `115200 8N1`; or similar. Other tools also could be used go establish a serial connection. Just please make sure it's configured using the above settings. 
 
-An example usage to open the MCC console using minicom is as follows:
+> An example usage to open the MCC console using minicom is as follows:
 - (Ensure to have minicom package pre-installed to the host using "sudo apt-get install minicom") `sudo minicom -s /dev/ttyUSB<n>`
 - Select Serial port setup from the user interface and configure the port settings mentioned above. Select Exit to apply the settings and to proceed with the port connection.
 - Refer to the COM port nomenclature in the table above to choose the desired port to establish the connection with. For more information on minicom usage, refer to minicom Manual.
@@ -81,12 +80,12 @@ Debug> exit
 - windows / putty - TODO
 - COM ports - TODO
 
+
 ### Updating firmware
-This is the most time consuming task but in order to get most of Morello board and CheriBSD this is something you **must** do. Please note that downloading from source code can take up to 10 hours and maybe in some cases even longer. There are multiple source repos so if you don't need any android or busy box I would strong advise to build with `none`. A full guide can be found -> [Firmware Update Guide](https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst). This is very important step as it unlocks all the latest feature available.
+Although this task may be the most time-consuming task, it is required in order to get most of Morello board and CheriBSD. Please note that downloading from source code can take up to 10 hours and in some cases even longer. There are multiple source repos so, if an android or busy box is not required, it would be advisable not to use one. A full guide can be found [here](https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst). This is very important step as it unlocks all the latest feature available.
 
-And for flashing the onboard SD card please follow [this](https://developer.arm.com/documentation/den0132/0100/Flash-the-onboard-SD-card) guide. It's fairly well written as we were able to follow it without any obstacles.
+For flashing the onboard SD card please follow [this](https://developer.arm.com/documentation/den0132/0100/Flash-the-onboard-SD-card) guide. Please note that the dependencies are for ubuntu/debian systems, but these are the standard packages that every distribution should have. For example, the guide says: 
 
-The guide is quite well detailed. However, the dependencies are for ubuntu/debian systems, but those are the standard packages so every distribution should have. For example in the guide it says
 ```sh
 sudo apt-get update
 sudo apt-get install autoconf autopoint bc bison build-essential \
@@ -112,15 +111,16 @@ For other systems please use system's package manaer e.g. `yum`
 -g busybox,android (Downloads software components for BSP, BusyBox and Android)
 ```
 
-After the installation of dependencies please carry on following steps in -> [guide](https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst).
+After the installation of dependencies please carry on following steps in [here](https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst).
 
 
 ## Installing OS
-Once you have updated the firmware it's time to put some operating system on the Morello board.
-> we would strongly recommend to update to the latest firstmaware as hardware comes with the firmaware from early January. There is a lot of active development going on at this moment so in order to see full potential of Morello please update the firmware before starting.
+Once the firmware has been updated, installing an operating system on the Morello board will take place.
+
+> It is recommended to update to the latest firstmaware, as hardware comes with the firmaware from early January. There active development is currently underway on this topic, so in order to see the full potential of Morello, please update the firmware prior to starting.
   
 ### Building and running CheriBSD
-> To build CheriBSD run cheribuild.py cheribsd-<architecture>, with architecture being one of
+> To build CheriBSD run cheribuild.py cheribsd-, with architecture being one of
 - `riscv64:` Kernel and userspace are RISC-V without CHERI support.
 - `riscv64-hybrid:` Kernel is RISC-V with CHERI support (hybrid), but most programs built as plain RISC-V.
 - `riscv64-purecap:` Kernel is RISC-V with CHERI support (hybrid), and all userspace programs built as pure-capability CHERI binaries.
@@ -168,6 +168,10 @@ Host cheribsd-riscv-purecap
 #### Android
 https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst#id15 - to be updated after some research...
 
+### TODO
+- [ ] - Document Androind
+- [ ] - Update connection paragragh to include `windows` and `putty` (get feedback from RealVNC)
+- [ ] - Ask Konrad to take a look and get any other relevant links/docs
     
 ## List of useful documentation
 - [Arm Morello Program](https://www.morello-project.org/)

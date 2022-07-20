@@ -169,7 +169,7 @@ Host cheribsd-riscv-purecap
 https://git.morello-project.org/morello/docs/-/blob/morello/mainline/user-guide.rst#id15 - to be updated after some research...
 
 ### TODO
-- [ ] - Document Androind
+- [ ] - Document Android
 - [ ] - Update connection paragragh to include `windows` and `putty` (get feedback from RealVNC)
 - [ ] - Ask Konrad to take a look and get any other relevant links/docs
     
